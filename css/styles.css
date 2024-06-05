@@ -1,0 +1,12 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
+.wrap-for-action {
+  display: flex;
+  height: 50vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}/*# sourceMappingURL=styles.css.map */
