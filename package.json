@@ -3,11 +3,8 @@
     "webpack-watch": "webpack --watch"
   },
   "dependencies": {
-    "@vimeo/player": "^2.23.0",
-    "flatpickr": "^4.6.13",
-    "lodash.throttle": "^4.1.1",
-    "notiflix": "^3.2.7",
-    "simplelightbox": "^2.14.3"
+    "axios": "^1.7.2",
+    "notiflix": "^3.2.7"
   },
   "devDependencies": {
     "babel-loader": "^9.1.3",
