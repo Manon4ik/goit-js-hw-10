@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     entry: './js/main.js',
-    mode: 'production',
+    mode: 'development',
     module: {
         rules: [
             { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
@@ -14,4 +14,5 @@ module.exports = {
         filename: 'index_bundle.js',
         clean: true
     },
+    devtool: 'source-map'
 }

@@ -1,5 +1,5 @@
 import './cat-api.js'
-import fetchCatByBreed from './cat-api.js'
+import { renderCatInfo } from './cat-api.js'
 import SlimSelect from 'slim-select'
 import '../node_modules/slim-select/dist/slimselect.css'
 import '../css/styles.css'
@@ -9,14 +9,17 @@ let select = new SlimSelect({
 })
 
 
+
+
 const breedSelect = document.querySelector(".breed-select")
 
 breedSelect.addEventListener("change", function () {
-    console.log('asd');
 
-    var breedId = select.getSelected()
-    console.log('breedId:',breedId.toString())
+    var breedId = select.getSelected().toString()
+    console.log('breedId:',breedId)
 
-    fetchCatByBreed(breedId.toString())
+    renderCatInfo(breedId)
+
+    //fetchCatByBreed(breedId)
 
 })
