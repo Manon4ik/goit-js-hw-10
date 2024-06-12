@@ -16,13 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var notiflix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! notiflix */ "./node_modules/notiflix/dist/notiflix-aio-3.2.7.min.js");
 /* harmony import */ var notiflix__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(notiflix__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-console.log('test1');
 
 
 axios__WEBPACK_IMPORTED_MODULE_1__["default"].defaults.headers.common["x-api-key"] = "live_JAuRBoZi5zwd5ocPRUNYNaBP4KGreSdTPZcZeiZjzIutb9OgVftLH5a9gSHDglC4";
 const apiUrl = 'https://api.thecatapi.com/v1/breeds';
-//const apiUrl = 'https://api.thecatapi.com/v1/images/search?limit=10';
-
 let catsData = window.localStorage.getItem('cats');
 const breedSelect = document.querySelector(".breed-select");
 const catInfoHtml = document.querySelector(".cat-info");
@@ -45,13 +42,11 @@ function fetchBreeds() {
 async function fetchCatByBreed(breedId) {
   await axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(apiUrl + `search?breed_ids=${breedId}`).then(response => {
     const catInfo = response.data[0];
-    console.log('catInfo:', catInfo);
     renderCatInfo(catInfo);
   }).catch(error => {
     console.error('There was a problem with the axios operation:', error);
     notiflix__WEBPACK_IMPORTED_MODULE_0__.Notify.failure(error);
   });
-  console.log('test');
 }
 function breedOption(params) {
   loaderEl.classList.toggle("is-hidden");
@@ -65,39 +60,27 @@ function breedOption(params) {
   }, 1000);
 }
 function renderCatInfo(breedId) {
+  loaderEl.classList.toggle("is-hidden");
   const cats = JSON.parse(catsData);
-  console.log('cats:', typeof cats);
-  console.log('cats:', cats);
-
-  // const { catItem } = cats
   const {
-    id,
-    image
+    description,
+    image,
+    name,
+    temperament
   } = cats.find(value => value.id === breedId);
-  console.log('id:', id);
-  console.log('image:', image);
-
-  // .map(({description, image})=>{
-  //    
-  // })
-
-  // const catItem = cats.map((el)=> {
-  //     if(el.id === breedId){
-  //         return {
-  //             desc: el.description,
-  //             image: el.image
-  //         }
-  //     }
-  // })
-
-  // console.log('catItem:', typeof (catItem));
-  // console.log('catItem:', catItem);
-
-  // const markup = info.map(({url})=>
-  //     `<img class="cat-image" src="${url}"/>`
-  // )
-
-  catInfoHtml.innerHTML = `<img class="cat-image" src="${image.url}"/>`;
+  catInfoHtml.innerHTML = `
+    <div class="cat-info__col">
+        <img class="cat-image" src="${image.url}"/>
+    </div>
+    <div class="cat-info__col">
+        <h3>${name}</h3>
+        <p>${description}</p>
+        <p><b>${temperament}</b></p>
+    </div>
+    `;
+  setTimeout(function () {
+    loaderEl.classList.toggle("is-hidden");
+  }, 1000);
 }
 if (!catsData) {
   console.log('no data');
@@ -2964,7 +2947,19 @@ body {
     -webkit-clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
             clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
   }
-}/*# sourceMappingURL=styles.css.map */`, "",{"version":3,"sources":["webpack://./css/styles.scss","webpack://./css/styles.css"],"names":[],"mappings":"AAAA;EACI,+CAAA;EACA,2BAAA;ACCJ;;ADEA;EACI,aAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,uBAAA;ACCJ;;ADEA;EACI,kBAAA;EACA,kBAAA;EACA,aAAA;EACA,SAAA;ACCJ;;ADCA;EACI,kBAAA;EACA,cAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;ACEJ;ADDI;EACI,aAAA;ACGR;;ADAA;EACI,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,oCAAA;EACA,gCAAA;ACGJ;;ADAA;;EAEI,WAAA;EACA,sBAAA;EACA,kBAAA;EACA,UAAA;EACA,kBAAA;EACA,sBAAA;EACA,yCAAA;ACGJ;;ADAA;EACI,UAAA;EACA,sCAAA;EACA,qBAAA;ACGJ;;ADAA;EACI;IACI,uBAAA;ECGN;EDAE;IACI,yBAAA;ECEN;AACF;ADCA;EACI;IACI,4DAAA;YAAA,oDAAA;ECCN;EDEE;IACI,wEAAA;YAAA,gEAAA;ECAN;EDGE;IAEI,iFAAA;YAAA,yEAAA;ECFN;AACF,CAAA,qCAAA","sourceRoot":""}]);
+}
+.cat-info {
+  display: flex;
+  justify-content: space-between;
+}
+.cat-info__col {
+  width: 50%;
+  padding: 0 10px;
+}
+
+img {
+  max-width: 100%;
+}/*# sourceMappingURL=styles.css.map */`, "",{"version":3,"sources":["webpack://./css/styles.scss","webpack://./css/styles.css"],"names":[],"mappings":"AAAA;EACI,+CAAA;EACA,2BAAA;ACCJ;;ADEA;EACI,aAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,uBAAA;ACCJ;;ADEA;EACI,kBAAA;EACA,kBAAA;EACA,aAAA;EACA,SAAA;ACCJ;;ADCA;EACI,kBAAA;EACA,cAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;ACEJ;ADDI;EACI,aAAA;ACGR;;ADAA;EACI,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,oCAAA;EACA,gCAAA;ACGJ;;ADAA;;EAEI,WAAA;EACA,sBAAA;EACA,kBAAA;EACA,UAAA;EACA,kBAAA;EACA,sBAAA;EACA,yCAAA;ACGJ;;ADAA;EACI,UAAA;EACA,sCAAA;EACA,qBAAA;ACGJ;;ADAA;EACI;IACI,uBAAA;ECGN;EDAE;IACI,yBAAA;ECEN;AACF;ADCA;EACI;IACI,4DAAA;YAAA,oDAAA;ECCN;EDEE;IACI,wEAAA;YAAA,gEAAA;ECAN;EDGE;IAEI,iFAAA;YAAA,yEAAA;ECFN;AACF;ADKA;EACI,aAAA;EACA,8BAAA;ACHJ;ADII;EACI,UAAA;EACA,eAAA;ACFR;;ADOA;EACI,eAAA;ACJJ,CAAA,qCAAA","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

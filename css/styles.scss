@@ -82,6 +82,16 @@ body{
     }
 }
 
-body{
-    //background-color: green;
+.cat-info{
+    display: flex;
+    justify-content: space-between;
+    &__col{
+        width: 50%;
+        padding: 0 10px;
+        //float: left;
+    }
+}
+
+img{
+    max-width: 100%;
 }

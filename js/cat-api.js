@@ -1,4 +1,3 @@
-console.log('test1');
 import { Notify } from 'notiflix'
 
 import axios from "axios";
@@ -6,8 +5,6 @@ axios.defaults.headers.common["x-api-key"] = "live_JAuRBoZi5zwd5ocPRUNYNaBP4KGre
 
 
 const apiUrl = 'https://api.thecatapi.com/v1/breeds';
-//const apiUrl = 'https://api.thecatapi.com/v1/images/search?limit=10';
-
 
 let catsData = window.localStorage.getItem('cats')
 const breedSelect = document.querySelector(".breed-select")
@@ -38,7 +35,6 @@ async function fetchCatByBreed(breedId) {
     await axios.get(apiUrl + `search?breed_ids=${breedId}`)
         .then(response => {
             const catInfo = response.data[0]
-            console.log('catInfo:', catInfo);
 
             renderCatInfo(catInfo)
 
@@ -48,7 +44,6 @@ async function fetchCatByBreed(breedId) {
             Notify.failure(error);
         });
 
-    console.log('test');
 }
 
 function breedOption(params) {
@@ -63,45 +58,31 @@ function breedOption(params) {
         loaderEl.classList.toggle("is-hidden")
     }, 1000)
 
-
 }
 
 function renderCatInfo(breedId) {
 
+    loaderEl.classList.toggle("is-hidden")
     const cats = JSON.parse(catsData)
 
-    console.log('cats:', typeof (cats));
-    console.log('cats:', cats);
-
-    // const { catItem } = cats
-    const { id, image } = cats
+    const { description, image, name, temperament } = cats
         .find(value => value.id === breedId)
-        
+    
+    catInfoHtml.innerHTML = 
+    `
+    <div class="cat-info__col">
+        <img class="cat-image" src="${image.url}"/>
+    </div>
+    <div class="cat-info__col">
+        <h3>${name}</h3>
+        <p>${description}</p>
+        <p><b>${temperament}</b></p>
+    </div>
+    `
 
-        console.log('id:',id);
-        console.log('image:',image);
-        
-    // .map(({description, image})=>{
-    //    
-    // })
-
-    // const catItem = cats.map((el)=> {
-    //     if(el.id === breedId){
-    //         return {
-    //             desc: el.description,
-    //             image: el.image
-    //         }
-    //     }
-    // })
-
-    // console.log('catItem:', typeof (catItem));
-    // console.log('catItem:', catItem);
-
-    // const markup = info.map(({url})=>
-    //     `<img class="cat-image" src="${url}"/>`
-    // )
-
-    catInfoHtml.innerHTML = `<img class="cat-image" src="${image.url}"/>`
+    setTimeout(function () {
+        loaderEl.classList.toggle("is-hidden")
+    }, 1000)
 }
 
 
